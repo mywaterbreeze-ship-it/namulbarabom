@@ -1,1127 +1,561 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>나를 바라봄 ♡</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>나를 바라봄 카드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-* {
-  box-sizing: border-box;
+:root {
+  /* 피치 핑크/웜 로즈 메인 톤 */
+  --primary-pink: #ed64a6;
+  --primary-pink-hover: #d53f8c;
+  --bg-pink: #fff5f7;
+  --card-pink-border: #fbb6ce;
+  --card-pink-light: #fed7e2;
+  --text-dark: #2d3748;
+  --text-sub: #64748b;
 }
+
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family:
-    "Noto Sans KR",
-    "Malgun Gothic",
-    sans-serif;
-  color: #315b9f;
-  background:
-    linear-gradient(
-      180deg,
-      #dff4ff 0%,
-      #fffdf3 42%,
-      #eee8ff 100%
-    );
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #fff5f7 0%, #fef0f4 50%, #fff7f9 100%);
+  color: var(--text-dark);
+  min-height: 100vh;
 }
-
-.container {
-  width: min(1200px, 94%);
-  margin: 0 auto;
-  padding: 35px 0 60px;
+.wrap {
+  width: 100%;
+  max-width: 1040px;
+  margin: auto;
+  padding: clamp(24px, 5vw, 48px) 20px 80px;
 }
-
-/* =========================
-   상단
-========================= */
-
 .hero {
   text-align: center;
-  padding: 20px 10px 35px;
+  padding: 20px 10px 36px;
 }
-
-.hero-title {
+.eyebrow {
+  display: inline-block;
+  letter-spacing: .1em;
+  font-size: 13px;
+  color: var(--primary-pink-hover);
+  font-weight: 700;
+  background: #ffffff;
+  padding: 6px 16px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(237, 100, 166, 0.12);
+  margin-bottom: 12px;
+  border: 1px solid var(--card-pink-border);
+}
+.hero h1 {
+  font-size: clamp(32px, 6vw, 44px);
+  margin: 0 0 12px;
+  color: #1a202c;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.hero p {
+  line-height: 1.6;
+  color: #4a5568;
+  font-size: clamp(15px, 2.5vw, 17px);
   margin: 0;
-  font-size: clamp(42px, 7vw, 78px);
-  font-weight: 900;
-  color: #315b9f;
-  letter-spacing: -4px;
 }
-
-.hero-title span {
-  color: #638bc6;
-}
-
-.hero-subtitle {
-  margin-top: 12px;
-  font-size: clamp(15px, 2vw, 21px);
-  line-height: 1.7;
-  color: #5273ac;
-}
-
-/* 구름 장식 */
-
-.cloud {
-  position: absolute;
-  width: 100px;
-  height: 35px;
-  background: white;
-  border-radius: 50px;
-  opacity: .8;
-}
-
-.cloud::before,
-.cloud::after {
-  content: "";
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-}
-
-.cloud::before {
-  width: 45px;
-  height: 45px;
-  left: 15px;
-  bottom: 5px;
-}
-
-.cloud::after {
-  width: 55px;
-  height: 55px;
-  right: 12px;
-  bottom: 3px;
-}
-
-/* =========================
-   메인
-========================= */
-
-.main-grid {
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 25px;
+  gap: 32px;
+  align-items: start;
 }
-
-/* 입력 패널 */
-
 .panel {
-  background: rgba(255,255,255,.92);
-  border-radius: 30px;
-  padding: 32px;
-  box-shadow:
-    0 12px 30px rgba(78,110,160,.12);
-  border: 2px solid #cce9ff;
-}
-
-.panel-title {
-  margin: 0 0 10px;
-  font-size: clamp(21px, 2.4vw, 30px);
-  font-weight: 900;
-}
-
-.panel-description {
-  margin: 0 0 25px;
-  line-height: 1.8;
-  color: #5577ae;
-}
-
-/* 질문 */
-
-.question {
-  padding: 18px;
-  border-radius: 22px;
-  margin-bottom: 15px;
-}
-
-.question.happy {
-  background: #fff8df;
-}
-
-.question.sos {
-  background: #f5edff;
-}
-
-.question.person {
-  background: #eaf6ff;
-}
-
-.question-title {
-  font-size: 19px;
-  font-weight: 900;
-  margin-bottom: 12px;
-}
-
-textarea {
-  display: block;
-  width: 100%;
-  min-height: 72px;
-  resize: vertical;
-
-  border: 2px solid #b8d9f5;
-  border-radius: 15px;
-
-  padding: 14px;
-
-  background: white;
-
-  color: #426aa9;
-  font-size: 15px;
-  font-family: inherit;
-
-  outline: none;
-}
-
-textarea:focus {
-  border-color: #7bb8eb;
-}
-
-textarea::placeholder {
-  color: #91a9cc;
-}
-
-/* =========================
-   캐릭터
-========================= */
-
-.character-area {
-  position: relative;
-  min-height: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background:
-    linear-gradient(
-      180deg,
-      #d9f1ff,
-      #f7fbff
-    );
-
+  background: #ffffff;
   border-radius: 28px;
-  overflow: hidden;
+  padding: 32px;
+  box-shadow: 0 10px 40px rgba(237, 100, 166, 0.05);
+  border: 1px solid rgba(251, 182, 206, 0.4);
 }
-
-/* 구름 */
-
-.character-area .mini-cloud {
-  position: absolute;
-  width: 85px;
-  height: 30px;
-  background: rgba(255,255,255,.8);
-  border-radius: 50px;
-}
-
-.mini-cloud.one {
-  top: 25px;
-  left: 25px;
-}
-
-.mini-cloud.two {
-  top: 55px;
-  right: 25px;
-}
-
-/* 꽃 */
-
-.flower {
-  position: absolute;
-  font-size: 30px;
-}
-
-.flower.one {
-  left: 25px;
-  bottom: 25px;
-}
-
-.flower.two {
-  right: 25px;
-  bottom: 25px;
-}
-
-/* 캐릭터 */
-
-.character {
-  position: relative;
-  width: 175px;
-  height: 145px;
-  z-index: 3;
-}
-
-/* 몸 */
-
-.character-body {
-  position: absolute;
-  left: 25px;
-  top: 25px;
-
-  width: 125px;
-  height: 110px;
-
-  background: #fffdf8;
-
-  border-radius:
-    48%
-    48%
-    45%
-    45%;
-
-  box-shadow:
-    inset -5px -7px 0 rgba(226,214,200,.35),
-    0 5px 10px rgba(93,120,155,.15);
-}
-
-/* 귀 */
-
-.ear {
-  position: absolute;
-  top: 12px;
-
-  width: 48px;
-  height: 48px;
-
-  background: #fffdf8;
-  border-radius: 50%;
-
-  z-index: -1;
-}
-
-.ear.left {
-  left: 28px;
-}
-
-.ear.right {
-  right: 28px;
-}
-
-/* 얼굴 */
-
-.eye {
-  position: absolute;
-  top: 62px;
-
-  width: 8px;
-  height: 11px;
-
-  background: #584b43;
-  border-radius: 50%;
-}
-
-.eye.left {
-  left: 62px;
-}
-
-.eye.right {
-  right: 62px;
-}
-
-.mouth {
-  position: absolute;
-  top: 75px;
-  left: 78px;
-
-  width: 18px;
-  height: 10px;
-
-  border-bottom:
-    3px solid #6d5148;
-
-  border-radius: 0 0 50% 50%;
-}
-
-/* 볼 */
-
-.cheek {
-  position: absolute;
-  top: 72px;
-
-  width: 22px;
-  height: 11px;
-
-  background: #ffc8c5;
-  border-radius: 50%;
-
-  opacity: .7;
-}
-
-.cheek.left {
-  left: 43px;
-}
-
-.cheek.right {
-  right: 43px;
-}
-
-/* 하트 */
-
-.heart {
-  position: absolute;
-
-  left: 50%;
-  top: 77px;
-
-  transform:
-    translateX(-50%)
-    rotate(-45deg);
-
-  width: 35px;
-  height: 35px;
-
-  background: #ff9c99;
-
-  border-radius:
-    5px 0 0 0;
-}
-
-.heart::before,
-.heart::after {
-  content: "";
-
-  position: absolute;
-
-  width: 35px;
-  height: 35px;
-
-  background: #ff9c99;
-
-  border-radius: 50%;
-}
-
-.heart::before {
-  top: -18px;
-  left: 0;
-}
-
-.heart::after {
-  left: 18px;
-  top: 0;
-}
-
-/* 카드 */
-
-.card-preview {
-  margin-top: 20px;
-  padding: 18px;
-
-  background: #fffdf8;
-  border-radius: 24px;
-
-  box-shadow:
-    0 10px 25px rgba(85,105,140,.15);
-
-  border: 1px solid #eadfd1;
-}
-
-.card-inner {
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid #e9dfd3;
-}
-
-/* 카드 상단 */
-
-.card-top {
-  padding: 18px 15px 12px;
-  text-align: center;
-
-  background:
-    linear-gradient(
-      180deg,
-      #cceeff,
-      #eaf8ff
-    );
-}
-
-.card-title {
-  margin: 0;
-  font-size: 30px;
-  font-weight: 900;
-  color: #315b9f;
-}
-
-.card-message {
-  margin-top: 3px;
-  font-size: 13px;
-  color: #426aa9;
-}
-
-/* 카드 캐릭터 */
-
-.card-character {
-  position: relative;
-  height: 175px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background:
-    linear-gradient(
-      180deg,
-      #bfe7fb,
-      #e8f7ff
-    );
-}
-
-/* 카드 질문 */
-
-.card-content {
-  padding: 15px;
-  background: #fffdf8;
-}
-
-.card-row {
-  margin-bottom: 10px;
-  padding: 10px 12px;
-
-  border-radius: 14px;
-}
-
-.card-row.happy {
-  background: #fff7dc;
-}
-
-.card-row.sos {
-  background: #f2eaff;
-}
-
-.card-row.person {
-  background: #e4f3ff;
-}
-
-.card-row-title {
-  font-size: 13px;
-  font-weight: 900;
-  color: #35609f;
-}
-
-.card-row-text {
-  margin-top: 5px;
-  font-size: 12px;
-  color: #5573a7;
-  line-height: 1.5;
-}
-
-.card-footer {
-  text-align: center;
-  padding: 12px;
-
-  font-size: 13px;
+.panel h3 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 1.3rem;
+  color: #1a202c;
   font-weight: 700;
-
-  color: #8b5a91;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-
-/* =========================
-   버튼
-========================= */
-
-.buttons {
+label {
+  display: block;
+  font-weight: 700;
+  margin: 22px 0 10px;
+  font-size: 0.95rem;
+  color: #4a5568;
+}
+.designs {
   display: flex;
   gap: 10px;
-  margin-top: 20px;
 }
-
-button {
+.designs button {
   flex: 1;
-
-  border: 0;
-  border-radius: 18px;
-
-  padding: 15px;
-
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 800;
-
+  border: 2px solid #fff0f4;
+  background: #fffafa;
+  border-radius: 14px;
+  padding: 12px 10px;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #718096;
+  transition: all 0.25s ease;
 }
-
-.reset {
-  background: #edf3fb;
-  color: #5875a4;
+.designs button:hover {
+  background: #fff0f4;
 }
-
-.save {
-  background:
-    linear-gradient(
-      135deg,
-      #8b63db,
-      #a968e7
-    );
-
-  color: white;
-
-  box-shadow:
-    0 5px 12px rgba(126,83,190,.2);
+.designs button.active {
+  background: var(--primary-pink);
+  color: #ffffff;
+  border-color: var(--primary-pink);
+  box-shadow: 0 4px 14px rgba(237, 100, 166, 0.35);
 }
-
-/* =========================
-   설문
-========================= */
-
-.survey {
-  margin-top: 25px;
-
-  padding: 25px;
-
-  border-radius: 30px;
-
-  background:
-    linear-gradient(
-      100deg,
-      #fff4fb,
-      #fff9ff
-    );
-
-  border: 2px solid #f3bce7;
-
-  text-align: center;
+input {
+  width: 100%;
+  border: 2px solid #ffe4ed;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font: inherit;
+  background: #fffdfd;
+  transition: all 0.2s ease;
 }
-
-.survey-small {
-  font-size: 14px;
-  color: #805a96;
-  font-weight: 700;
+input:focus {
+  outline: none;
+  border-color: var(--primary-pink);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(237, 100, 166, 0.15);
 }
-
-.survey-title {
-  margin: 7px 0 15px;
-
-  font-size: clamp(21px, 3vw, 32px);
-  font-weight: 900;
-
-  color: #9b42bd;
-}
-
-.survey a {
-  display: inline-block;
-
-  padding: 14px 30px;
-
-  border-radius: 40px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #9d60df,
-      #7f43ca
-    );
-
-  color: white;
-
-  text-decoration: none;
-
-  font-weight: 900;
-  font-size: 18px;
-
-  box-shadow:
-    0 7px 15px rgba(119,63,179,.2);
-}
-
-/* =========================
-   도움기관
-========================= */
-
-.help {
-  margin-top: 25px;
-
-  padding: 28px;
-
-  background: rgba(238,248,255,.9);
-
-  border-radius: 30px;
-
-  text-align: center;
-}
-
-.help h2 {
-  margin: 0 0 18px;
-
-  font-size: 22px;
-}
-
 .help-box {
-  display: flex;
-  justify-content: center;
+  border: 1px solid var(--card-pink-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: #fff8f9;
 }
-
 .help-item {
-  min-width: 280px;
-
-  padding: 18px 30px;
-
-  background: white;
-
-  border: 1px solid #c9ddf6;
-  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+.help-item + .help-item {
+  border-top: 1px dashed var(--card-pink-light);
+}
+.help-num {
+  font-weight: 800;
+  color: var(--primary-pink-hover);
+  background: #fff;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 6px rgba(237, 100, 166, 0.1);
+  border: 1px solid #ffe4ed;
+}
+.help-label {
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-weight: 600;
+}
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+.actions button {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+.btn-reset {
+  background: #fff0f4;
+  color: #718096;
+}
+.btn-reset:hover {
+  background: #ffe4ed;
+}
+.btn-save {
+  background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-pink-hover) 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(237, 100, 166, 0.4);
+}
+.btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(237, 100, 166, 0.5);
+}
+.note {
+  font-size: 13px;
+  color: #a0aec0;
+  margin-top: 14px;
+  text-align: center;
 }
 
-.help-name {
-  font-size: 15px;
+/* --- 카드 디자인 --- */
+.card {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 4 / 5.2;
+  margin: auto;
+  border-radius: 32px;
+  padding: clamp(28px, 6vw, 36px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 20px 45px rgba(237, 100, 166, 0.08);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1) 베이지 다이어리 */
+.card.diary {
+  background: #fdfaf5;
+  border: 2px solid #eee7d8;
+  color: #4a3e3d;
+}
+.card.diary .card-badge { background: #eee7d8; color: #4a3e3d; }
+.card.diary .item { border-top: 1px dashed #dfd7c5; }
+
+/* 2) 피치 핑크 */
+.card.pink {
+  background: linear-gradient(145deg, #fff5f5 0%, #fed7e2 100%);
+  border: 2px solid var(--card-pink-border);
+  color: #702459;
+}
+.card.pink .card-badge { background: var(--card-pink-border); color: #702459; }
+.card.pink .item { border-top: 1px dashed var(--card-pink-border); }
+
+/* 3) 파스텔 블루 */
+.card.blue {
+  background: linear-gradient(145deg, #f0f7ff 0%, #e6effd 100%);
+  border: 2px solid #d0e1fd;
+  color: #2b4c7e;
+}
+.card.blue .card-badge { background: #ebf8ff; color: #2b6cb0; }
+.card.blue .item { border-top: 1px solid #dce7f9; }
+
+/* 캐릭터 일러스트 아이콘 스타일 */
+.card-character {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  font-size: 44px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.card-badge {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .12em;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+.card h2 {
+  font-size: clamp(26px, 6.5vw, 32px);
+  margin: 4px 0 6px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.card .intro {
+  font-size: clamp(12px, 2.8vw, 14px);
+  line-height: 1.6;
+  opacity: .8;
+}
+.item {
+  padding: clamp(10px, 2.4vw, 14px) 0;
+}
+.item b {
+  font-size: clamp(11px, 2.5vw, 13px);
+  display: block;
+  opacity: .65;
+  margin-bottom: 5px;
   font-weight: 700;
 }
-
-.help-number {
-  margin-top: 5px;
-
-  font-size: 29px;
-  font-weight: 900;
-
-  color: #7b45cf;
+.item span {
+  font-size: clamp(14px, 3.6vw, 17px);
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+  word-break: keep-all;
+  font-weight: 600;
+}
+.help-card {
+  font-size: clamp(10px, 2.4vw, 11.5px);
+  line-height: 1.5;
+  border-top: 1.5px solid rgba(0,0,0,0.08);
+  padding-top: 10px;
+  opacity: 0.9;
+}
+.help-card-title {
+  font-weight: 700;
+  margin-bottom: 3px;
 }
 
-.help-time {
-  font-size: 13px;
-  color: #6784ae;
+/* --- 설문조사 섹션 --- */
+.survey-section {
+  margin-top: 48px;
+}
+.survey-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fff5f7 100%);
+  border: 2px solid var(--card-pink-border);
+  border-radius: 28px;
+  padding: 40px 28px;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(237, 100, 166, 0.08);
+  position: relative;
+  transition: transform 0.25s ease;
+}
+.survey-card:hover {
+  transform: translateY(-4px);
+}
+.survey-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary-pink) 0%, #ff8a65 100%);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(237, 100, 166, 0.3);
+}
+.survey-card h2 {
+  font-size: clamp(20px, 4vw, 24px);
+  margin: 0 0 10px 0;
+  color: #1e293b;
+  font-weight: 800;
+}
+.survey-card p {
+  font-size: clamp(14px, 2.5vw, 16px);
+  color: var(--text-sub);
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+.survey-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.qr-wrapper {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(237, 100, 166, 0.08);
+  border: 1px solid var(--card-pink-border);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.qr-code {
+  width: 140px;
+  height: 140px;
+  display: block;
+}
+.qr-label {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  margin-top: 8px;
+  font-weight: 600;
+}
+.survey-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-pink-hover) 100%);
+  color: #ffffff !important;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-decoration: none;
+  padding: 16px 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(237, 100, 166, 0.35);
+  transition: all 0.3s ease;
+}
+.survey-button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 28px rgba(237, 100, 166, 0.45);
 }
 
-/* =========================
-   모바일
-========================= */
-
-@media (max-width: 800px) {
-
-  .container {
-    width: 94%;
-    padding-top: 20px;
-  }
-
-  .main-grid {
+@media (max-width: 768px) {
+  .grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
-
+  .wrap {
+    padding: 20px 14px 60px;
+  }
   .panel {
-    padding: 22px;
+    border-radius: 22px;
+    padding: 24px;
   }
-
-  .hero-title {
-    letter-spacing: -2px;
-  }
-
-  .character-area {
-    min-height: 220px;
-  }
-
-  .survey {
-    padding: 22px 15px;
-  }
-
-  .survey a {
-    width: 100%;
-    font-size: 16px;
-  }
-
-  .help-item {
-    width: 100%;
-    min-width: 0;
-  }
-}
-
-@media (max-width: 450px) {
-
-  .question-title {
-    font-size: 16px;
-  }
-
-  textarea {
-    font-size: 13px;
-  }
-
-  .buttons {
-    flex-direction: column;
+  .card {
+    border-radius: 24px;
+    padding: 24px;
   }
 }
 </style>
 </head>
-
-
 <body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">생명존중 캠페인</div>
+    <h1>나를 바라봄</h1>
+    <p>내 마음을 잠시 들여다보고,<br>나를 지켜주는 것들을 기록해보세요.</p>
+  </header>
 
-<div class="container">
-
-  <!-- =====================
-       HERO
-  ====================== -->
-
-  <section class="hero">
-
-    <h1 class="hero-title">
-      나를 바라봄 <span>♡</span>
-    </h1>
-
-    <p class="hero-subtitle">
-      지금, 나를 위한 작은 질문
-    </p>
-
-  </section>
-
-
-  <!-- =====================
-       입력 + 미리보기
-  ====================== -->
-
-  <div class="main-grid">
-
-    <!-- 왼쪽 -->
-
+  <div class="grid">
     <section class="panel">
+      <h3>🎨 나만의 카드 만들기</h3>
+      
+      <label>1. 디자인 테마</label>
+      <div class="designs">
+        <button class="active" data-design="diary">베이지 다이어리</button>
+        <button data-design="pink">피치 핑크</button>
+        <button data-design="blue">파스텔 블루</button>
+      </div>
 
-      <h2 class="panel-title">
-        🌼 내 마음을 들여다봐요
-      </h2>
+      <label for="happy">2. 나를 웃게 하는 소소한 행복</label>
+      <input id="happy" maxlength="40" placeholder="예: 좋아하는 음악 듣기">
 
-      <p class="panel-description">
-        지금의 나를 돌아보며,
-        나에게 꼭 맞는 한 장의 카드를 만들어보세요.<br>
-        소중한 나를 위한 따뜻한 시간이 될 거예요.
-      </p>
+      <label for="sos">3. 내 마음이 보내는 SOS 신호</label>
+      <input id="sos" maxlength="40" placeholder="예: 잠이 잘 오지 않는다">
 
+      <label for="person">4. 나를 지켜주는 사람 또는 장소</label>
+      <input id="person" maxlength="40" placeholder="예: 언제든 연락할 수 있는 친구">
 
-      <!-- 행복 -->
-
-      <div class="question happy">
-
-        <div class="question-title">
-          ☀️ 나를 웃게 하는 소소한 행복은?
+      <label>5. 도움이 필요할 때</label>
+      <div class="help-box">
+        <div class="help-item">
+          <span class="help-label">자살예방상담전화</span>
+          <span class="help-num">109</span>
         </div>
-
-        <textarea
-          id="happy"
-          maxlength="100"
-          placeholder="예) 맛있는 거 먹기, 좋아하는 노래 듣기, 친구랑 수다 떨기 등"
-        ></textarea>
-
-      </div>
-
-
-      <!-- SOS -->
-
-      <div class="question sos">
-
-        <div class="question-title">
-          💜 내 마음이 보내는 SOS 신호는?
+        <div class="help-item">
+          <span class="help-label">정신건강위기상담전화</span>
+          <span class="help-num">1577-0199</span>
         </div>
-
-        <textarea
-          id="sos"
-          maxlength="100"
-          placeholder="예) 자꾸 불안해져요, 쉽게 지쳐요, 혼자 있고 싶어요 등"
-        ></textarea>
-
-      </div>
-
-
-      <!-- 사람 -->
-
-      <div class="question person">
-
-        <div class="question-title">
-          👥 나를 지켜주는 사람 또는 장소는?
+        <div class="help-item">
+          <span class="help-label">카카오톡 채널 / 어플</span>
+          <span class="help-num">마들랜</span>
         </div>
-
-        <textarea
-          id="person"
-          maxlength="100"
-          placeholder="예) 가족, 친구, 반려동물, 학교, 자연 등"
-        ></textarea>
-
       </div>
 
-
-      <p style="
-        font-size:13px;
-        color:#5375aa;
-        margin:15px 5px 0;
-      ">
-        🌱 모든 답변은 익명으로 작성되며,
-        카드 제작에만 사용됩니다.
-      </p>
-
-
-      <div class="buttons">
-
-        <button
-          class="reset"
-          onclick="resetCard()"
-        >
-          ↻ 다시 작성하기
-        </button>
-
-        <button
-          class="save"
-          onclick="saveCard()"
-        >
-          ↓ 카드 저장하기
-        </button>
-
+      <div class="actions">
+        <button id="reset" class="btn-reset">🔄 다시 쓰기</button>
+        <button id="save" class="btn-save">💾 카드 저장하기</button>
       </div>
-
+      <div class="note">저장하기를 누르면 현재 카드가 PNG 이미지로 저장됩니다.</div>
     </section>
 
-
-    <!-- 오른쪽 미리보기 -->
-
     <section class="panel">
-
-      <div class="card-preview">
-
-        <div class="card-inner">
-
-          <div class="card-top">
-
-            <h2 class="card-title">
-              나를 바라봄
-            </h2>
-
-            <div class="card-message">
-              지금도 충분히 소중한<br>
-              너에게
-            </div>
-
-          </div>
-
-
-          <!-- 캐릭터 -->
-
-          <div class="card-character">
-
-            <div class="mini-cloud one"></div>
-            <div class="mini-cloud two"></div>
-
-            <div class="flower one">🌼</div>
-            <div class="flower two">🌷</div>
-
-
-            <div class="character">
-
-              <div class="ear left"></div>
-              <div class="ear right"></div>
-
-              <div class="character-body">
-
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-
-                <div class="cheek left"></div>
-                <div class="cheek right"></div>
-
-                <div class="mouth"></div>
-
-                <div class="heart"></div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- 카드 내용 -->
-
-          <div class="card-content">
-
-            <div class="card-row happy">
-
-              <div class="card-row-title">
-                ☀️ 나를 웃게 하는 소소한 행복
-              </div>
-
-              <div
-                id="previewHappy"
-                class="card-row-text"
-              >
-                맛있는 거 먹기
-              </div>
-
-            </div>
-
-
-            <div class="card-row sos">
-
-              <div class="card-row-title">
-                💜 내 마음이 보내는 SOS 신호
-              </div>
-
-              <div
-                id="previewSos"
-                class="card-row-text"
-              >
-                가끔 불안하고 쉽게 지쳐요
-              </div>
-
-            </div>
-
-
-            <div class="card-row person">
-
-              <div class="card-row-title">
-                👥 나를 지켜주는 사람 또는 장소
-              </div>
-
-              <div
-                id="previewPerson"
-                class="card-row-text"
-              >
-                가족, 친구, 그리고 좋아하는 카페
-              </div>
-
-            </div>
-
-            <div class="card-footer">
-              지금도, 너는 충분히 잘하고 있어요. ♡
-            </div>
-
-          </div>
-
+      <h3>👀 카드 미리보기</h3>
+      <div id="card" class="card diary">
+        <div class="card-character">🌱</div>
+        <div>
+          <span class="card-badge">MY 바라봄 CARD</span>
+          <h2>나를 바라봄</h2>
+          <div class="intro">내 마음을 살펴보고<br>나를 지켜주는 것들을 기억해요.</div>
         </div>
-
+        <div>
+          <div class="item"><b>나를 웃게 하는 행복</b><span id="pvHappy">좋아하는 음악 듣기</span></div>
+          <div class="item"><b>내 마음의 SOS</b><span id="pvSos">잠이 잘 오지 않는다</span></div>
+          <div class="item"><b>나를 지켜주는 사람·장소</b><span id="pvPerson">언제든 연락할 수 있는 친구</span></div>
+        </div>
+        <div class="help-card">
+          <div class="help-card-title">💡 도움이 필요할 때 연결하세요</div>
+          <div>• 자살예방상담전화 109</div>
+          <div>• 정신건강위기상담전화 1577-0199</div>
+          <div>• 카카오톡 채널 / 어플 <b>'마들랜'</b></div>
+        </div>
       </div>
-
     </section>
-
   </div>
 
-
-  <!-- =====================
-       설문
-  ====================== -->
-
-  <section class="survey">
-
-    <div class="survey-small">
-      📝 아래 설문지 작성 후
-    </div>
-
-    <div class="survey-title">
-      캠페인 참여를 완료해주세요. 💕
-    </div>
-
-    <a
-      href="https://forms.gle/oBxjLeV3sbcWbJiY9"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      → 설문지 작성하기
-    </a>
-
-  </section>
-
-
-  <!-- =====================
-       도움기관
-  ====================== -->
-
-  <section class="help">
-
-    <h2>
-      ♡ 도움이 필요할 때
-    </h2>
-
-    <div class="help-box">
-
-      <div class="help-item">
-
-        <div class="help-name">
-          자살예방상담전화
+  <section class="survey-section">
+    <div class="survey-card">
+      <div class="survey-badge">📌 필수 마지막 단계</div>
+      <h2>설문지 작성 후 캠페인 참여를 완료해주세요</h2>
+      <p>카드를 만든 후 <b>설문조사까지 작성해주셔야 이벤트 참여가 완료</b>됩니다!</p>
+      
+      <div class="survey-body">
+        <div class="qr-wrapper">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://forms.gle/Yd45TadYrndnZEG76" alt="설문조사 QR 코드" class="qr-code">
+          <span class="qr-label">📱 카메라로 스캔 가능</span>
         </div>
 
-        <div class="help-number">
-          109
-        </div>
-
-        <div class="help-time">
-          24시간 상담
-        </div>
-
+        <a href="https://forms.gle/Yd45TadYrndnZEG76" target="_blank" class="survey-button">
+          👉 설문지 바로 작성하러 가기
+        </a>
       </div>
-
     </div>
-
   </section>
-
 </div>
 
-
 <script>
+const ids = ["happy", "sos", "person"];
+const defaults = {
+  happy: "좋아하는 음악 듣기",
+  sos: "잠이 잘 오지 않는다",
+  person: "언제든 연락할 수 있는 친구"
+};
 
-/* =====================
-   실시간 카드 반영
-===================== */
-
-const happy = document.getElementById("happy");
-const sos = document.getElementById("sos");
-const person = document.getElementById("person");
-
-const previewHappy =
-  document.getElementById("previewHappy");
-
-const previewSos =
-  document.getElementById("previewSos");
-
-const previewPerson =
-  document.getElementById("previewPerson");
-
-
-happy.addEventListener("input", () => {
-
-  previewHappy.textContent =
-    happy.value || "맛있는 거 먹기";
-
-});
-
-
-sos.addEventListener("input", () => {
-
-  previewSos.textContent =
-    sos.value || "가끔 불안하고 쉽게 지쳐요";
-
-});
-
-
-person.addEventListener("input", () => {
-
-  previewPerson.textContent =
-    person.value || "가족, 친구, 그리고 좋아하는 카페";
-
-});
-
-
-/* =====================
-   초기화
-===================== */
-
-function resetCard() {
-
-  happy.value = "";
-  sos.value = "";
-  person.value = "";
-
-  previewHappy.textContent =
-    "맛있는 거 먹기";
-
-  previewSos.textContent =
-    "가끔 불안하고 쉽게 지쳐요";
-
-  previewPerson.textContent =
-    "가족, 친구, 그리고 좋아하는 카페";
+function update() {
+  ids.forEach(id => {
+    const v = document.getElementById(id).value.trim() || defaults[id];
+    document.getElementById("pv" + id[0].toUpperCase() + id.slice(1)).textContent = v;
+  });
 }
 
+ids.forEach(id => document.getElementById(id).addEventListener("input", update));
 
-/* =====================
-   카드 저장
-===================== */
+document.querySelectorAll("[data-design]").forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll("[data-design]").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById("card").className = "card " + b.dataset.design;
+  };
+});
 
-function saveCard() {
+document.getElementById("reset").onclick = () => {
+  ids.forEach(id => document.getElementById(id).value = "");
+  update();
+};
 
-  alert(
-    "카드 저장 기능을 사용하려면 html2canvas를 연결해주세요."
-  );
-
-}
-
+document.getElementById("save").onclick = async () => {
+  if (!window.html2canvas) {
+    alert("저장 기능을 준비하는 중입니다. 잠시 후 다시 시도해보세요.");
+    return;
+  }
+  const canvas = await html2canvas(document.getElementById("card"), { scale: 2, useCORS: true });
+  const a = document.createElement("a");
+  a.download = "나를_바라봄_카드.png";
+  a.href = canvas.toDataURL("image/png");
+  a.click();
+};
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </body>
 </html>
