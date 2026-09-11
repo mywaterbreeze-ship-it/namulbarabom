@@ -1,1379 +1,1127 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="나를 바라봄 - 나의 마음을 돌아보고 소중한 사람과 연결되는 생명존중 캠페인" />
-  <title>나를 바라봄 ♡</title>
-
-  <!-- 카드 PNG 저장용 -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family:
-        "Pretendard",
-        "Apple SD Gothic Neo",
-        "Noto Sans KR",
-        Arial,
-        sans-serif;
-      color: #43516a;
-      background:
-        radial-gradient(circle at 10% 10%, rgba(255,255,255,.9), transparent 28%),
-        linear-gradient(135deg, #e9f5ff 0%, #fff8ed 48%, #f0eaff 100%);
-      min-height: 100vh;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .page {
-      width: 100%;
-      overflow-x: hidden;
-    }
-
-    /* =========================
-       Header
-    ========================= */
-
-    .hero {
-      text-align: center;
-      padding: 58px 20px 38px;
-    }
-
-    .hero-bubble {
-      display: inline-block;
-      margin-bottom: 14px;
-      padding: 7px 15px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.72);
-      color: #7c91b5;
-      font-size: 13px;
-      font-weight: 700;
-      box-shadow: 0 5px 18px rgba(90,110,145,.08);
-    }
-
-    .hero h1 {
-      margin: 0;
-      color: #6386c3;
-      font-size: clamp(38px, 8vw, 64px);
-      font-weight: 900;
-      letter-spacing: -3px;
-      line-height: 1.15;
-    }
-
-    .hero h1 span {
-      color: #e5a7c2;
-    }
-
-    .hero p {
-      margin: 17px auto 0;
-      max-width: 600px;
-      color: #75839a;
-      font-size: 16px;
-      line-height: 1.75;
-      word-break: keep-all;
-    }
-
-    /* =========================
-       Layout
-    ========================= */
-
-    .container {
-      width: min(1120px, calc(100% - 32px));
-      margin: 0 auto 70px;
-    }
-
-    .workspace {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(350px, 450px);
-      gap: 28px;
-      align-items: start;
-    }
-
-    .panel {
-      background: rgba(255,255,255,.88);
-      border: 1px solid rgba(255,255,255,.95);
-      border-radius: 28px;
-      padding: 30px;
-      box-shadow:
-        0 16px 45px rgba(91,112,145,.10),
-        0 3px 10px rgba(91,112,145,.04);
-      backdrop-filter: blur(10px);
-    }
-
-    .panel-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0 0 25px;
-      color: #536984;
-      font-size: 21px;
-      font-weight: 800;
-      letter-spacing: -0.7px;
-    }
-
-    .panel-title .num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 31px;
-      height: 31px;
-      flex: 0 0 31px;
-      border-radius: 50%;
-      background: #eaf2ff;
-      color: #6e8fc5;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    /* =========================
-       Design selector
-    ========================= */
-
-    .design-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 30px;
-    }
-
-    .design-option {
-      position: relative;
-    }
-
-    .design-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .design-option label {
-      display: block;
-      cursor: pointer;
-      padding: 15px 10px;
-      border: 2px solid #edf0f5;
-      border-radius: 18px;
-      text-align: center;
-      background: #fff;
-      color: #7a879a;
-      transition: .2s ease;
-      user-select: none;
-    }
-
-    .design-option label:hover {
-      transform: translateY(-2px);
-      border-color: #cbdcf8;
-    }
-
-    .design-option input:checked + label {
-      border-color: #91b2e5;
-      background: #f4f8ff;
-      color: #5579b5;
-      box-shadow: 0 7px 18px rgba(100,135,190,.12);
-    }
-
-    .design-icon {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 25px;
-    }
-
-    .design-name {
-      display: block;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    /* =========================
-       Form
-    ========================= */
-
-    .field {
-      margin-bottom: 22px;
-    }
-
-    .field:last-child {
-      margin-bottom: 0;
-    }
-
-    .field-label {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      margin-bottom: 9px;
-      color: #5d6f88;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: -0.4px;
-    }
-
-    .field-label .emoji {
-      font-size: 17px;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 92px;
-      resize: vertical;
-      border: 2px solid #edf0f5;
-      border-radius: 17px;
-      outline: none;
-      padding: 14px 16px;
-      background: #fbfcff;
-      color: #52627a;
-      line-height: 1.6;
-      font-size: 14px;
-      transition: .2s ease;
-    }
-
-    textarea::placeholder {
-      color: #b4bdca;
-    }
-
-    textarea:focus {
-      border-color: #a9c2e9;
-      background: #fff;
-      box-shadow: 0 0 0 4px rgba(169,194,233,.13);
-    }
-
-    .field-help {
-      margin: 7px 2px 0;
-      color: #a2adbb;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    /* =========================
-       Preview
-    ========================= */
-
-    .preview-panel {
-      position: sticky;
-      top: 20px;
-    }
-
-    .preview-title {
-      margin-bottom: 18px;
-    }
-
-    .card-wrap {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      padding: 4px 0 8px;
-    }
-
-    .memory-card {
-      position: relative;
-      width: 100%;
-      max-width: 390px;
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-      border-radius: 28px;
-      padding: 30px 27px;
-      box-shadow: 0 18px 35px rgba(85,105,140,.14);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .memory-card::before,
-    .memory-card::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .memory-card::before {
-      width: 145px;
-      height: 145px;
-      top: -48px;
-      right: -35px;
-      background: rgba(255,255,255,.45);
-    }
-
-    .memory-card::after {
-      width: 100px;
-      height: 100px;
-      bottom: -35px;
-      left: -30px;
-      background: rgba(255,255,255,.35);
-    }
-
-    /* diary */
-    .memory-card.diary {
-      background: linear-gradient(145deg, #fff8df, #fff0d5);
-      color: #655c4d;
-    }
-
-    /* simple */
-    .memory-card.simple {
-      background: linear-gradient(145deg, #edf9ef, #e3f4ed);
-      color: #4e675b;
-    }
-
-    /* character */
-    .memory-card.character {
-      background: linear-gradient(145deg, #eaf5ff, #e9edff);
-      color: #53657f;
-    }
-
-    .card-top {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 28px;
-    }
-
-    .card-small {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      opacity: .62;
-    }
-
-    .card-heart {
-      font-size: 21px;
-      opacity: .7;
-    }
-
-    .card-heading {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 27px;
-    }
-
-    .card-heading h2 {
-      margin: 0;
-      font-size: clamp(27px, 5vw, 34px);
-      line-height: 1.2;
-      letter-spacing: -2px;
-      font-weight: 900;
-    }
-
-    .card-heading p {
-      margin: 8px 0 0;
-      font-size: 12px;
-      opacity: .64;
-    }
-
-    .card-section {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 17px;
-    }
-
-    .card-section-label {
-      margin-bottom: 6px;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: .4px;
-      opacity: .6;
-    }
-
-    .card-section-text {
-      min-height: 27px;
-      padding-bottom: 7px;
-      border-bottom: 1px dashed rgba(80,90,110,.22);
-      font-size: 13px;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-
-    .card-footer {
-      position: relative;
-      z-index: 1;
-      margin-top: auto;
-      padding-top: 17px;
-      border-top: 1px solid rgba(80,90,110,.12);
-      font-size: 10px;
-      line-height: 1.5;
-      opacity: .65;
-      text-align: center;
-    }
-
-    .card-character {
-      position: absolute;
-      right: 24px;
-      bottom: 45px;
-      z-index: 0;
-      font-size: 48px;
-      opacity: .48;
-      transform: rotate(5deg);
-    }
-
-    /* =========================
-       Buttons
-    ========================= */
-
-    .actions {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 10px;
-      margin-top: 22px;
-    }
-
-    .btn {
-      min-height: 52px;
-      border: 0;
-      border-radius: 16px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 800;
-      transition: .2s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    .btn-reset {
-      background: #f4f5f8;
-      color: #8994a4;
-    }
-
-    .btn-save {
-      background: linear-gradient(135deg, #789bd3, #9bb5df);
-      color: white;
-      box-shadow: 0 8px 20px rgba(116,151,205,.22);
-    }
-
-    /* =========================
-       Survey CTA
-    ========================= */
-
-    .survey-cta {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      width: 100%;
-      margin-top: 16px;
-      padding: 18px 18px 18px 17px;
-      overflow: hidden;
-      text-decoration: none;
-      border-radius: 20px;
-      border: 2px solid #f1cadc;
-      background: linear-gradient(135deg, #fff3f8, #fff8ee);
-      color: #765b69;
-      box-shadow: 0 8px 24px rgba(190,130,160,.12);
-      transition: .2s ease;
-    }
-
-    .survey-cta:hover {
-      transform: translateY(-2px);
-      border-color: #e6b5cd;
-      box-shadow: 0 12px 28px rgba(190,130,160,.18);
-    }
-
-    .survey-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 46px;
-      height: 46px;
-      flex: 0 0 46px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.8);
-      font-size: 23px;
-    }
-
-    .survey-copy {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      min-width: 0;
-    }
-
-    .survey-badge {
-      width: fit-content;
-      padding: 3px 7px;
-      border-radius: 999px;
-      background: #e9a8c4;
-      color: white;
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: .3px;
-    }
-
-    .survey-copy strong {
-      color: #76576a;
-      font-size: 13px;
-      line-height: 1.45;
-      letter-spacing: -.3px;
-    }
-
-    .survey-copy small {
-      color: #b08097;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .survey-arrow {
-      margin-left: auto;
-      color: #d18cab;
-      font-size: 23px;
-      font-weight: 700;
-    }
-
-    .survey-note {
-      margin: 8px 4px 0;
-      color: #a5aeba;
-      font-size: 11px;
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    /* =========================
-       Help contacts
-    ========================= */
-
-    .help-panel {
-      margin-top: 28px;
-    }
-
-    .help-intro {
-      margin: -12px 0 18px;
-      color: #8995a7;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .help-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .help-item {
-      padding: 17px 14px;
-      border-radius: 18px;
-      text-align: center;
-      background: #f8faff;
-      border: 1px solid #edf1f8;
-    }
-
-    .help-number {
-      display: block;
-      margin-bottom: 4px;
-      color: #698bc5;
-      font-size: 20px;
-      font-weight: 900;
-    }
-
-    .help-name {
-      display: block;
-      color: #77859a;
-      font-size: 11px;
-      line-height: 1.4;
-    }
-
-    /* =========================
-       Bottom message
-    ========================= */
-
-    .bottom-message {
-      margin-top: 28px;
-      padding: 27px 25px;
-      border-radius: 25px;
-      background: rgba(255,255,255,.72);
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(90,110,145,.07);
-    }
-
-    .bottom-message .big {
-      margin: 0 0 8px;
-      color: #667fae;
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    .bottom-message p {
-      margin: 0;
-      color: #8c98a9;
-      font-size: 13px;
-      line-height: 1.7;
-      word-break: keep-all;
-    }
-
-    /* =========================
-       Toast
-    ========================= */
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 25px;
-      z-index: 9999;
-      transform: translate(-50%, 20px);
-      opacity: 0;
-      pointer-events: none;
-      padding: 12px 19px;
-      border-radius: 999px;
-      background: rgba(67,78,98,.93);
-      color: white;
-      font-size: 13px;
-      font-weight: 700;
-      box-shadow: 0 8px 25px rgba(40,50,70,.18);
-      transition: .25s ease;
-      white-space: nowrap;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-
-    /* =========================
-       Responsive
-    ========================= */
-
-    @media (max-width: 850px) {
-      .workspace {
-        grid-template-columns: 1fr;
-      }
-
-      .preview-panel {
-        position: static;
-      }
-
-      .card-wrap {
-        padding-top: 0;
-      }
-
-      .memory-card {
-        max-width: 430px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero {
-        padding: 40px 18px 27px;
-      }
-
-      .hero h1 {
-        letter-spacing: -2.5px;
-      }
-
-      .hero p {
-        font-size: 14px;
-      }
-
-      .container {
-        width: min(100% - 20px, 560px);
-        margin-bottom: 40px;
-      }
-
-      .panel {
-        padding: 22px 18px;
-        border-radius: 23px;
-      }
-
-      .panel-title {
-        font-size: 18px;
-        margin-bottom: 20px;
-      }
-
-      .design-grid {
-        gap: 8px;
-      }
-
-      .design-option label {
-        padding: 12px 6px;
-        border-radius: 15px;
-      }
-
-      .design-icon {
-        font-size: 22px;
-      }
-
-      .design-name {
-        font-size: 11px;
-      }
-
-      .memory-card {
-        border-radius: 24px;
-        padding: 25px 22px;
-      }
-
-      .help-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .help-item {
-        display: flex;
-        align-items: center;
-        text-align: left;
-        gap: 12px;
-        padding: 14px;
-      }
-
-      .help-number {
-        margin: 0;
-        min-width: 58px;
-        font-size: 18px;
-      }
-
-      .survey-cta {
-        padding: 15px;
-      }
-
-      .survey-icon {
-        width: 42px;
-        height: 42px;
-        flex-basis: 42px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .hero h1 {
-        font-size: 39px;
-      }
-
-      .hero p {
-        font-size: 13px;
-      }
-
-      .design-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .design-option label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 7px;
-        padding: 10px;
-      }
-
-      .design-icon {
-        display: inline;
-        margin: 0;
-      }
-
-      .actions {
-        grid-template-columns: 1fr;
-      }
-
-      .memory-card {
-        aspect-ratio: 4 / 5.2;
-      }
-
-      .survey-copy strong {
-        font-size: 12px;
-      }
-
-      .survey-arrow {
-        font-size: 19px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>나를 바라봄 ♡</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    "Noto Sans KR",
+    "Malgun Gothic",
+    sans-serif;
+  color: #315b9f;
+  background:
+    linear-gradient(
+      180deg,
+      #dff4ff 0%,
+      #fffdf3 42%,
+      #eee8ff 100%
+    );
+}
+
+.container {
+  width: min(1200px, 94%);
+  margin: 0 auto;
+  padding: 35px 0 60px;
+}
+
+/* =========================
+   상단
+========================= */
+
+.hero {
+  text-align: center;
+  padding: 20px 10px 35px;
+}
+
+.hero-title {
+  margin: 0;
+  font-size: clamp(42px, 7vw, 78px);
+  font-weight: 900;
+  color: #315b9f;
+  letter-spacing: -4px;
+}
+
+.hero-title span {
+  color: #638bc6;
+}
+
+.hero-subtitle {
+  margin-top: 12px;
+  font-size: clamp(15px, 2vw, 21px);
+  line-height: 1.7;
+  color: #5273ac;
+}
+
+/* 구름 장식 */
+
+.cloud {
+  position: absolute;
+  width: 100px;
+  height: 35px;
+  background: white;
+  border-radius: 50px;
+  opacity: .8;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+}
+
+.cloud::before {
+  width: 45px;
+  height: 45px;
+  left: 15px;
+  bottom: 5px;
+}
+
+.cloud::after {
+  width: 55px;
+  height: 55px;
+  right: 12px;
+  bottom: 3px;
+}
+
+/* =========================
+   메인
+========================= */
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+/* 입력 패널 */
+
+.panel {
+  background: rgba(255,255,255,.92);
+  border-radius: 30px;
+  padding: 32px;
+  box-shadow:
+    0 12px 30px rgba(78,110,160,.12);
+  border: 2px solid #cce9ff;
+}
+
+.panel-title {
+  margin: 0 0 10px;
+  font-size: clamp(21px, 2.4vw, 30px);
+  font-weight: 900;
+}
+
+.panel-description {
+  margin: 0 0 25px;
+  line-height: 1.8;
+  color: #5577ae;
+}
+
+/* 질문 */
+
+.question {
+  padding: 18px;
+  border-radius: 22px;
+  margin-bottom: 15px;
+}
+
+.question.happy {
+  background: #fff8df;
+}
+
+.question.sos {
+  background: #f5edff;
+}
+
+.question.person {
+  background: #eaf6ff;
+}
+
+.question-title {
+  font-size: 19px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 72px;
+  resize: vertical;
+
+  border: 2px solid #b8d9f5;
+  border-radius: 15px;
+
+  padding: 14px;
+
+  background: white;
+
+  color: #426aa9;
+  font-size: 15px;
+  font-family: inherit;
+
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #7bb8eb;
+}
+
+textarea::placeholder {
+  color: #91a9cc;
+}
+
+/* =========================
+   캐릭터
+========================= */
+
+.character-area {
+  position: relative;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      180deg,
+      #d9f1ff,
+      #f7fbff
+    );
+
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+/* 구름 */
+
+.character-area .mini-cloud {
+  position: absolute;
+  width: 85px;
+  height: 30px;
+  background: rgba(255,255,255,.8);
+  border-radius: 50px;
+}
+
+.mini-cloud.one {
+  top: 25px;
+  left: 25px;
+}
+
+.mini-cloud.two {
+  top: 55px;
+  right: 25px;
+}
+
+/* 꽃 */
+
+.flower {
+  position: absolute;
+  font-size: 30px;
+}
+
+.flower.one {
+  left: 25px;
+  bottom: 25px;
+}
+
+.flower.two {
+  right: 25px;
+  bottom: 25px;
+}
+
+/* 캐릭터 */
+
+.character {
+  position: relative;
+  width: 175px;
+  height: 145px;
+  z-index: 3;
+}
+
+/* 몸 */
+
+.character-body {
+  position: absolute;
+  left: 25px;
+  top: 25px;
+
+  width: 125px;
+  height: 110px;
+
+  background: #fffdf8;
+
+  border-radius:
+    48%
+    48%
+    45%
+    45%;
+
+  box-shadow:
+    inset -5px -7px 0 rgba(226,214,200,.35),
+    0 5px 10px rgba(93,120,155,.15);
+}
+
+/* 귀 */
+
+.ear {
+  position: absolute;
+  top: 12px;
+
+  width: 48px;
+  height: 48px;
+
+  background: #fffdf8;
+  border-radius: 50%;
+
+  z-index: -1;
+}
+
+.ear.left {
+  left: 28px;
+}
+
+.ear.right {
+  right: 28px;
+}
+
+/* 얼굴 */
+
+.eye {
+  position: absolute;
+  top: 62px;
+
+  width: 8px;
+  height: 11px;
+
+  background: #584b43;
+  border-radius: 50%;
+}
+
+.eye.left {
+  left: 62px;
+}
+
+.eye.right {
+  right: 62px;
+}
+
+.mouth {
+  position: absolute;
+  top: 75px;
+  left: 78px;
+
+  width: 18px;
+  height: 10px;
+
+  border-bottom:
+    3px solid #6d5148;
+
+  border-radius: 0 0 50% 50%;
+}
+
+/* 볼 */
+
+.cheek {
+  position: absolute;
+  top: 72px;
+
+  width: 22px;
+  height: 11px;
+
+  background: #ffc8c5;
+  border-radius: 50%;
+
+  opacity: .7;
+}
+
+.cheek.left {
+  left: 43px;
+}
+
+.cheek.right {
+  right: 43px;
+}
+
+/* 하트 */
+
+.heart {
+  position: absolute;
+
+  left: 50%;
+  top: 77px;
+
+  transform:
+    translateX(-50%)
+    rotate(-45deg);
+
+  width: 35px;
+  height: 35px;
+
+  background: #ff9c99;
+
+  border-radius:
+    5px 0 0 0;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+
+  position: absolute;
+
+  width: 35px;
+  height: 35px;
+
+  background: #ff9c99;
+
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -18px;
+  left: 0;
+}
+
+.heart::after {
+  left: 18px;
+  top: 0;
+}
+
+/* 카드 */
+
+.card-preview {
+  margin-top: 20px;
+  padding: 18px;
+
+  background: #fffdf8;
+  border-radius: 24px;
+
+  box-shadow:
+    0 10px 25px rgba(85,105,140,.15);
+
+  border: 1px solid #eadfd1;
+}
+
+.card-inner {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #e9dfd3;
+}
+
+/* 카드 상단 */
+
+.card-top {
+  padding: 18px 15px 12px;
+  text-align: center;
+
+  background:
+    linear-gradient(
+      180deg,
+      #cceeff,
+      #eaf8ff
+    );
+}
+
+.card-title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 900;
+  color: #315b9f;
+}
+
+.card-message {
+  margin-top: 3px;
+  font-size: 13px;
+  color: #426aa9;
+}
+
+/* 카드 캐릭터 */
+
+.card-character {
+  position: relative;
+  height: 175px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background:
+    linear-gradient(
+      180deg,
+      #bfe7fb,
+      #e8f7ff
+    );
+}
+
+/* 카드 질문 */
+
+.card-content {
+  padding: 15px;
+  background: #fffdf8;
+}
+
+.card-row {
+  margin-bottom: 10px;
+  padding: 10px 12px;
+
+  border-radius: 14px;
+}
+
+.card-row.happy {
+  background: #fff7dc;
+}
+
+.card-row.sos {
+  background: #f2eaff;
+}
+
+.card-row.person {
+  background: #e4f3ff;
+}
+
+.card-row-title {
+  font-size: 13px;
+  font-weight: 900;
+  color: #35609f;
+}
+
+.card-row-text {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #5573a7;
+  line-height: 1.5;
+}
+
+.card-footer {
+  text-align: center;
+  padding: 12px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #8b5a91;
+}
+
+/* =========================
+   버튼
+========================= */
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button {
+  flex: 1;
+
+  border: 0;
+  border-radius: 18px;
+
+  padding: 15px;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.reset {
+  background: #edf3fb;
+  color: #5875a4;
+}
+
+.save {
+  background:
+    linear-gradient(
+      135deg,
+      #8b63db,
+      #a968e7
+    );
+
+  color: white;
+
+  box-shadow:
+    0 5px 12px rgba(126,83,190,.2);
+}
+
+/* =========================
+   설문
+========================= */
+
+.survey {
+  margin-top: 25px;
+
+  padding: 25px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      100deg,
+      #fff4fb,
+      #fff9ff
+    );
+
+  border: 2px solid #f3bce7;
+
+  text-align: center;
+}
+
+.survey-small {
+  font-size: 14px;
+  color: #805a96;
+  font-weight: 700;
+}
+
+.survey-title {
+  margin: 7px 0 15px;
+
+  font-size: clamp(21px, 3vw, 32px);
+  font-weight: 900;
+
+  color: #9b42bd;
+}
+
+.survey a {
+  display: inline-block;
+
+  padding: 14px 30px;
+
+  border-radius: 40px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #9d60df,
+      #7f43ca
+    );
+
+  color: white;
+
+  text-decoration: none;
+
+  font-weight: 900;
+  font-size: 18px;
+
+  box-shadow:
+    0 7px 15px rgba(119,63,179,.2);
+}
+
+/* =========================
+   도움기관
+========================= */
+
+.help {
+  margin-top: 25px;
+
+  padding: 28px;
+
+  background: rgba(238,248,255,.9);
+
+  border-radius: 30px;
+
+  text-align: center;
+}
+
+.help h2 {
+  margin: 0 0 18px;
+
+  font-size: 22px;
+}
+
+.help-box {
+  display: flex;
+  justify-content: center;
+}
+
+.help-item {
+  min-width: 280px;
+
+  padding: 18px 30px;
+
+  background: white;
+
+  border: 1px solid #c9ddf6;
+  border-radius: 18px;
+}
+
+.help-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.help-number {
+  margin-top: 5px;
+
+  font-size: 29px;
+  font-weight: 900;
+
+  color: #7b45cf;
+}
+
+.help-time {
+  font-size: 13px;
+  color: #6784ae;
+}
+
+/* =========================
+   모바일
+========================= */
+
+@media (max-width: 800px) {
+
+  .container {
+    width: 94%;
+    padding-top: 20px;
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    padding: 22px;
+  }
+
+  .hero-title {
+    letter-spacing: -2px;
+  }
+
+  .character-area {
+    min-height: 220px;
+  }
+
+  .survey {
+    padding: 22px 15px;
+  }
+
+  .survey a {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .help-item {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 450px) {
+
+  .question-title {
+    font-size: 16px;
+  }
+
+  textarea {
+    font-size: 13px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+}
+</style>
 </head>
 
+
 <body>
-  <div class="page">
 
-    <!-- =========================
-         HERO
-    ========================== -->
+<div class="container">
 
-    <header class="hero">
-      <div class="hero-bubble">🌷 생명존중 캠페인</div>
+  <!-- =====================
+       HERO
+  ====================== -->
 
-      <h1>나를 바라봄 <span>♡</span></h1>
+  <section class="hero">
 
-      <p>
-        잠시 멈춰서 나의 마음을 바라봐 주세요.<br />
-        오늘의 작은 행복과 나를 지켜주는 존재를 기록해 봅니다.
+    <h1 class="hero-title">
+      나를 바라봄 <span>♡</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      지금, 나를 위한 작은 질문
+    </p>
+
+  </section>
+
+
+  <!-- =====================
+       입력 + 미리보기
+  ====================== -->
+
+  <div class="main-grid">
+
+    <!-- 왼쪽 -->
+
+    <section class="panel">
+
+      <h2 class="panel-title">
+        🌼 내 마음을 들여다봐요
+      </h2>
+
+      <p class="panel-description">
+        지금의 나를 돌아보며,
+        나에게 꼭 맞는 한 장의 카드를 만들어보세요.<br>
+        소중한 나를 위한 따뜻한 시간이 될 거예요.
       </p>
-    </header>
 
 
-    <main class="container">
+      <!-- 행복 -->
 
-      <div class="workspace">
+      <div class="question happy">
 
-        <!-- =========================
-             LEFT : INPUT
-        ========================== -->
+        <div class="question-title">
+          ☀️ 나를 웃게 하는 소소한 행복은?
+        </div>
 
-        <section class="panel">
-
-          <h2 class="panel-title">
-            <span class="num">1</span>
-            나만의 카드 디자인을 골라주세요
-          </h2>
-
-          <div class="design-grid">
-
-            <div class="design-option">
-              <input
-                type="radio"
-                name="design"
-                id="designDiary"
-                value="diary"
-                checked
-              />
-              <label for="designDiary">
-                <span class="design-icon">📖</span>
-                <span class="design-name">포근한 일기장</span>
-              </label>
-            </div>
-
-            <div class="design-option">
-              <input
-                type="radio"
-                name="design"
-                id="designSimple"
-                value="simple"
-              />
-              <label for="designSimple">
-                <span class="design-icon">🌿</span>
-                <span class="design-name">차분한 하루</span>
-              </label>
-            </div>
-
-            <div class="design-option">
-              <input
-                type="radio"
-                name="design"
-                id="designCharacter"
-                value="character"
-              />
-              <label for="designCharacter">
-                <span class="design-icon">🐰</span>
-                <span class="design-name">귀여운 마음</span>
-              </label>
-            </div>
-
-          </div>
-
-
-          <div class="field">
-            <label class="field-label" for="happy">
-              <span class="emoji">☀️</span>
-              2. 나를 웃게 하는 소소한 행복
-            </label>
-
-            <textarea
-              id="happy"
-              placeholder="예) 좋아하는 음악 듣기, 맛있는 간식 먹기, 산책하기"
-              maxlength="150"
-            >좋아하는 음악 듣기</textarea>
-
-            <p class="field-help">
-              크고 특별한 일이 아니어도 괜찮아요. 나를 조금이라도 기분 좋게 하는 것을 적어주세요.
-            </p>
-          </div>
-
-
-          <div class="field">
-            <label class="field-label" for="sos">
-              <span class="emoji">🫧</span>
-              3. 내 마음이 보내는 SOS 신호
-            </label>
-
-            <textarea
-              id="sos"
-              placeholder="예) 잠이 잘 오지 않는다, 아무것도 하기 싫다"
-              maxlength="150"
-            >잠이 잘 오지 않는다</textarea>
-
-            <p class="field-help">
-              힘들 때 나타나는 나만의 신호를 미리 알아두면 마음을 돌보는 데 도움이 돼요.
-            </p>
-          </div>
-
-
-          <div class="field">
-            <label class="field-label" for="person">
-              <span class="emoji">💗</span>
-              4. 나를 지켜주는 사람 또는 장소
-            </label>
-
-            <textarea
-              id="person"
-              placeholder="예) 언제든 연락할 수 있는 친구, 가족, 좋아하는 장소"
-              maxlength="150"
-            >언제든 연락할 수 있는 친구</textarea>
-
-            <p class="field-help">
-              힘들 때 생각나는 사람이나 편안함을 느끼는 장소를 적어주세요.
-            </p>
-          </div>
-
-
-          <!-- Buttons -->
-
-          <div class="actions">
-            <button
-              type="button"
-              class="btn btn-reset"
-              id="resetBtn"
-            >
-              ↻ 다시 작성하기
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-save"
-              id="saveBtn"
-            >
-              💾 나의 카드 이미지 저장하기
-            </button>
-          </div>
-
-
-          <!-- =========================
-               SURVEY
-          ========================== -->
-
-          <a
-            class="survey-cta"
-            href="https://forms.gle/oBxjLeV3sbcWbJiY9"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="survey-icon">📝</span>
-
-            <span class="survey-copy">
-              <span class="survey-badge">필수 참여</span>
-
-              <strong>
-                아래 설문지 작성 후<br />
-                캠페인 참여를 완료해주세요. 💕
-              </strong>
-
-              <small>설문지 작성하기 →</small>
-            </span>
-
-            <span class="survey-arrow">↗</span>
-          </a>
-
-          <p class="survey-note">
-            카드 저장 후 설문조사까지 작성해 주시면 캠페인 참여가 완료됩니다.
-          </p>
-
-        </section>
-
-
-        <!-- =========================
-             RIGHT : PREVIEW
-        ========================== -->
-
-        <section class="panel preview-panel">
-
-          <h2 class="panel-title preview-title">
-            <span class="num">♡</span>
-            나의 카드 미리보기
-          </h2>
-
-          <div class="card-wrap">
-
-            <div
-              class="memory-card diary"
-              id="memoryCard"
-            >
-
-              <div class="card-top">
-                <span class="card-small">MY LITTLE CARD</span>
-                <span class="card-heart">♡</span>
-              </div>
-
-
-              <div class="card-heading">
-                <h2>나를 바라봄</h2>
-                <p>오늘의 나를 조금 더 다정하게 바라보기</p>
-              </div>
-
-
-              <div class="card-section">
-                <div class="card-section-label">
-                  ☀️ SMALL HAPPINESS
-                </div>
-
-                <div
-                  class="card-section-text"
-                  id="previewHappy"
-                >
-                  좋아하는 음악 듣기
-                </div>
-              </div>
-
-
-              <div class="card-section">
-                <div class="card-section-label">
-                  🫧 MY SOS SIGNAL
-                </div>
-
-                <div
-                  class="card-section-text"
-                  id="previewSos"
-                >
-                  잠이 잘 오지 않는다
-                </div>
-              </div>
-
-
-              <div class="card-section">
-                <div class="card-section-label">
-                  💗 SOMEONE / SOMEWHERE
-                </div>
-
-                <div
-                  class="card-section-text"
-                  id="previewPerson"
-                >
-                  언제든 연락할 수 있는 친구
-                </div>
-              </div>
-
-
-              <div
-                class="card-character"
-                id="cardCharacter"
-              >
-                🌷
-              </div>
-
-
-              <div class="card-footer">
-                나의 마음을 살피는 것도<br />
-                나를 소중히 여기는 방법입니다.
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
+        <textarea
+          id="happy"
+          maxlength="100"
+          placeholder="예) 맛있는 거 먹기, 좋아하는 노래 듣기, 친구랑 수다 떨기 등"
+        ></textarea>
 
       </div>
 
 
-      <!-- =========================
-           HELP CONTACTS
-      ========================== -->
+      <!-- SOS -->
 
-      <section class="panel help-panel">
+      <div class="question sos">
 
-        <h2 class="panel-title">
-          <span class="num">♡</span>
-          마음이 많이 힘들 때는 도움을 요청해도 괜찮아요
-        </h2>
+        <div class="question-title">
+          💜 내 마음이 보내는 SOS 신호는?
+        </div>
 
-        <p class="help-intro">
-          혼자 감당하기 어려운 마음이 있다면 주변의 사람이나 전문기관에 도움을 요청해 주세요.
-        </p>
+        <textarea
+          id="sos"
+          maxlength="100"
+          placeholder="예) 자꾸 불안해져요, 쉽게 지쳐요, 혼자 있고 싶어요 등"
+        ></textarea>
 
-        <div class="help-grid">
+      </div>
 
-          <div class="help-item">
-            <span class="help-number">109</span>
-            <span class="help-name">
-              자살예방상담전화
-            </span>
+
+      <!-- 사람 -->
+
+      <div class="question person">
+
+        <div class="question-title">
+          👥 나를 지켜주는 사람 또는 장소는?
+        </div>
+
+        <textarea
+          id="person"
+          maxlength="100"
+          placeholder="예) 가족, 친구, 반려동물, 학교, 자연 등"
+        ></textarea>
+
+      </div>
+
+
+      <p style="
+        font-size:13px;
+        color:#5375aa;
+        margin:15px 5px 0;
+      ">
+        🌱 모든 답변은 익명으로 작성되며,
+        카드 제작에만 사용됩니다.
+      </p>
+
+
+      <div class="buttons">
+
+        <button
+          class="reset"
+          onclick="resetCard()"
+        >
+          ↻ 다시 작성하기
+        </button>
+
+        <button
+          class="save"
+          onclick="saveCard()"
+        >
+          ↓ 카드 저장하기
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- 오른쪽 미리보기 -->
+
+    <section class="panel">
+
+      <div class="card-preview">
+
+        <div class="card-inner">
+
+          <div class="card-top">
+
+            <h2 class="card-title">
+              나를 바라봄
+            </h2>
+
+            <div class="card-message">
+              지금도 충분히 소중한<br>
+              너에게
+            </div>
+
           </div>
 
-          <div class="help-item">
-            <span class="help-number">1577-0199</span>
-            <span class="help-name">
-              정신건강위기상담전화
-            </span>
+
+          <!-- 캐릭터 -->
+
+          <div class="card-character">
+
+            <div class="mini-cloud one"></div>
+            <div class="mini-cloud two"></div>
+
+            <div class="flower one">🌼</div>
+            <div class="flower two">🌷</div>
+
+
+            <div class="character">
+
+              <div class="ear left"></div>
+              <div class="ear right"></div>
+
+              <div class="character-body">
+
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+
+                <div class="cheek left"></div>
+                <div class="cheek right"></div>
+
+                <div class="mouth"></div>
+
+                <div class="heart"></div>
+
+              </div>
+
+            </div>
+
           </div>
 
-          <div class="help-item">
-            <span class="help-number">1388</span>
-            <span class="help-name">
-              청소년상담전화
-            </span>
+
+          <!-- 카드 내용 -->
+
+          <div class="card-content">
+
+            <div class="card-row happy">
+
+              <div class="card-row-title">
+                ☀️ 나를 웃게 하는 소소한 행복
+              </div>
+
+              <div
+                id="previewHappy"
+                class="card-row-text"
+              >
+                맛있는 거 먹기
+              </div>
+
+            </div>
+
+
+            <div class="card-row sos">
+
+              <div class="card-row-title">
+                💜 내 마음이 보내는 SOS 신호
+              </div>
+
+              <div
+                id="previewSos"
+                class="card-row-text"
+              >
+                가끔 불안하고 쉽게 지쳐요
+              </div>
+
+            </div>
+
+
+            <div class="card-row person">
+
+              <div class="card-row-title">
+                👥 나를 지켜주는 사람 또는 장소
+              </div>
+
+              <div
+                id="previewPerson"
+                class="card-row-text"
+              >
+                가족, 친구, 그리고 좋아하는 카페
+              </div>
+
+            </div>
+
+            <div class="card-footer">
+              지금도, 너는 충분히 잘하고 있어요. ♡
+            </div>
+
           </div>
 
         </div>
 
-      </section>
+      </div>
 
-
-      <!-- =========================
-           BOTTOM MESSAGE
-      ========================== -->
-
-      <section class="bottom-message">
-
-        <p class="big">
-          오늘의 나도 충분히 소중해요. 🌷
-        </p>
-
-        <p>
-          마음이 힘든 순간에는 혼자 견디려고 하지 않아도 괜찮습니다.<br />
-          믿을 수 있는 사람에게 이야기하고 도움을 요청해 주세요.
-        </p>
-
-      </section>
-
-    </main>
-
-
-    <!-- Toast -->
-
-    <div
-      class="toast"
-      id="toast"
-      role="status"
-      aria-live="polite"
-    ></div>
+    </section>
 
   </div>
 
 
-  <script>
-    /* =========================
-       Elements
-    ========================== */
+  <!-- =====================
+       설문
+  ====================== -->
 
-    const happyInput = document.getElementById("happy");
-    const sosInput = document.getElementById("sos");
-    const personInput = document.getElementById("person");
+  <section class="survey">
 
-    const previewHappy = document.getElementById("previewHappy");
-    const previewSos = document.getElementById("previewSos");
-    const previewPerson = document.getElementById("previewPerson");
+    <div class="survey-small">
+      📝 아래 설문지 작성 후
+    </div>
 
-    const memoryCard = document.getElementById("memoryCard");
-    const cardCharacter = document.getElementById("cardCharacter");
+    <div class="survey-title">
+      캠페인 참여를 완료해주세요. 💕
+    </div>
 
-    const saveBtn = document.getElementById("saveBtn");
-    const resetBtn = document.getElementById("resetBtn");
-    const toast = document.getElementById("toast");
+    <a
+      href="https://forms.gle/oBxjLeV3sbcWbJiY9"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      → 설문지 작성하기
+    </a>
 
+  </section>
 
-    /* =========================
-       Default values
-    ========================== */
 
-    const defaults = {
-      happy: "좋아하는 음악 듣기",
-      sos: "잠이 잘 오지 않는다",
-      person: "언제든 연락할 수 있는 친구"
-    };
+  <!-- =====================
+       도움기관
+  ====================== -->
 
+  <section class="help">
 
-    /* =========================
-       Toast
-    ========================== */
+    <h2>
+      ♡ 도움이 필요할 때
+    </h2>
 
-    let toastTimer;
+    <div class="help-box">
 
-    function showToast(message) {
-      clearTimeout(toastTimer);
+      <div class="help-item">
 
-      toast.textContent = message;
-      toast.classList.add("show");
+        <div class="help-name">
+          자살예방상담전화
+        </div>
 
-      toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2500);
-    }
+        <div class="help-number">
+          109
+        </div>
 
+        <div class="help-time">
+          24시간 상담
+        </div>
 
-    /* =========================
-       Safe text
-    ========================== */
+      </div>
 
-    function displayValue(value, fallback) {
-      const trimmed = value.trim();
+    </div>
 
-      return trimmed || fallback;
-    }
+  </section>
 
+</div>
 
-    /* =========================
-       Update preview
-    ========================== */
 
-    function updatePreview() {
-      previewHappy.textContent =
-        displayValue(happyInput.value, defaults.happy);
+<script>
 
-      previewSos.textContent =
-        displayValue(sosInput.value, defaults.sos);
+/* =====================
+   실시간 카드 반영
+===================== */
 
-      previewPerson.textContent =
-        displayValue(personInput.value, defaults.person);
-    }
+const happy = document.getElementById("happy");
+const sos = document.getElementById("sos");
+const person = document.getElementById("person");
 
+const previewHappy =
+  document.getElementById("previewHappy");
 
-    /* =========================
-       Design
-    ========================== */
+const previewSos =
+  document.getElementById("previewSos");
 
-    function updateDesign() {
-      const selected = document.querySelector(
-        'input[name="design"]:checked'
-      );
+const previewPerson =
+  document.getElementById("previewPerson");
 
-      if (!selected) return;
 
-      const design = selected.value;
+happy.addEventListener("input", () => {
 
-      memoryCard.classList.remove(
-        "diary",
-        "simple",
-        "character"
-      );
+  previewHappy.textContent =
+    happy.value || "맛있는 거 먹기";
 
-      memoryCard.classList.add(design);
+});
 
 
-      if (design === "diary") {
-        cardCharacter.textContent = "🌷";
-      }
+sos.addEventListener("input", () => {
 
-      if (design === "simple") {
-        cardCharacter.textContent = "🌿";
-      }
+  previewSos.textContent =
+    sos.value || "가끔 불안하고 쉽게 지쳐요";
 
-      if (design === "character") {
-        cardCharacter.textContent = "🐰";
-      }
-    }
+});
 
 
-    /* =========================
-       Input listeners
-    ========================== */
+person.addEventListener("input", () => {
 
-    [happyInput, sosInput, personInput].forEach(input => {
-      input.addEventListener("input", updatePreview);
-    });
+  previewPerson.textContent =
+    person.value || "가족, 친구, 그리고 좋아하는 카페";
 
+});
 
-    document
-      .querySelectorAll('input[name="design"]')
-      .forEach(radio => {
-        radio.addEventListener("change", updateDesign);
-      });
 
+/* =====================
+   초기화
+===================== */
 
-    /* =========================
-       Reset
-    ========================== */
+function resetCard() {
 
-    resetBtn.addEventListener("click", () => {
+  happy.value = "";
+  sos.value = "";
+  person.value = "";
 
-      happyInput.value = defaults.happy;
-      sosInput.value = defaults.sos;
-      personInput.value = defaults.person;
+  previewHappy.textContent =
+    "맛있는 거 먹기";
 
-      document.getElementById("designDiary").checked = true;
+  previewSos.textContent =
+    "가끔 불안하고 쉽게 지쳐요";
 
-      updatePreview();
-      updateDesign();
+  previewPerson.textContent =
+    "가족, 친구, 그리고 좋아하는 카페";
+}
 
-      showToast("카드를 처음부터 다시 작성할 수 있어요 🌷");
-    });
 
+/* =====================
+   카드 저장
+===================== */
 
-    /* =========================
-       Save PNG
-    ========================== */
+function saveCard() {
 
-    saveBtn.addEventListener("click", async () => {
+  alert(
+    "카드 저장 기능을 사용하려면 html2canvas를 연결해주세요."
+  );
 
-      if (typeof html2canvas === "undefined") {
-        showToast("카드 저장 기능을 불러오지 못했어요.");
-        return;
-      }
+}
 
-      const originalText = saveBtn.textContent;
-
-      saveBtn.disabled = true;
-      saveBtn.textContent = "⏳ 카드 만드는 중...";
-
-      try {
-
-        /*
-         * scale을 높여 저장하면
-         * 휴대폰에서도 비교적 선명한 PNG가 생성됩니다.
-         */
-        const canvas = await html2canvas(memoryCard, {
-          scale: 3,
-          useCORS: true,
-          backgroundColor: null,
-          logging: false
-        });
-
-
-        const link = document.createElement("a");
-
-        const now = new Date();
-
-        const date =
-          now.getFullYear() +
-          String(now.getMonth() + 1).padStart(2, "0") +
-          String(now.getDate()).padStart(2, "0");
-
-
-        link.download = `나를_바라봄_카드_${date}.png`;
-        link.href = canvas.toDataURL("image/png");
-
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-
-        showToast(
-          "카드 이미지가 저장되었어요! 💕 설문조사도 잊지 마세요."
-        );
-
-      } catch (error) {
-
-        console.error("카드 저장 오류:", error);
-
-        showToast(
-          "카드 저장 중 문제가 발생했어요. 다시 시도해주세요."
-        );
-
-      } finally {
-
-        saveBtn.disabled = false;
-        saveBtn.textContent = originalText;
-
-      }
-    });
-
-
-    /* =========================
-       Initial render
-    ========================== */
-
-    updatePreview();
-    updateDesign();
-
-  </script>
+</script>
 
 </body>
 </html>
