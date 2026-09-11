@@ -7,17 +7,33 @@
 <title>나를 바라봄 카드</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;background:#f5f2ec;color:#343434}
-.wrap{max-width:1050px;margin:auto;padding:34px 20px 70px}.hero{text-align:center;padding:34px 10px 25px}
-.eyebrow{letter-spacing:.15em;font-size:12px;color:#8b806f}.hero h1{font-size:42px;margin:10px 0 12px}.hero p{line-height:1.7;color:#666;margin:0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}.panel{background:#fff;border-radius:24px;padding:25px;box-shadow:0 8px 30px #0000000b}
+.wrap{width:100%;max-width:1050px;margin:auto;padding:clamp(20px,5vw,34px) 16px 60px}.hero{text-align:center;padding:34px 10px 25px}
+.eyebrow{letter-spacing:.15em;font-size:12px;color:#8b806f}.hero h1{font-size:clamp(30px,7vw,42px);margin:10px 0 12px}.hero p{line-height:1.7;color:#666;margin:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}.panel{background:#fff;min-width:0;border-radius:24px;padding:25px;box-shadow:0 8px 30px #0000000b}
 label{display:block;font-weight:700;margin:19px 0 8px}.designs{display:flex;gap:8px}.designs button,.actions button{border:1px solid #ddd;background:#fff;border-radius:12px;padding:10px 13px;cursor:pointer}.designs button.active{background:#343434;color:#fff;border-color:#343434}
-input,textarea,select{width:100%;border:1px solid #ddd;border-radius:12px;padding:12px;font:inherit;background:#fff}textarea{min-height:74px;resize:vertical}
-.card{width:min(100%,430px);aspect-ratio:4/5;margin:auto;border-radius:28px;padding:35px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 14px 35px #0002;overflow:hidden}
+input,textarea,select{width:100%;min-width:0;border:1px solid #ddd;border-radius:12px;padding:12px;font:inherit;background:#fff}textarea{min-height:74px;resize:vertical}
+.card{width:100%;max-width:430px;aspect-ratio:4/5;margin:auto;border-radius:28px;padding:35px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 14px 35px #0002;overflow:hidden}
 .card.diary{background:#fff9e9;border:1px solid #e6dcc3}.card.simple{background:#f3f7f3;border:1px solid #d8e1d8}.card.character{background:#eaf4ff;border:1px solid #d2e1ef}
-.card .small{font-size:12px;letter-spacing:.12em;opacity:.65}.card h2{font-size:30px;margin:7px 0}.card .intro{font-size:14px;line-height:1.7;opacity:.75}
-.item{padding:12px 0;border-top:1px solid #00000012}.item b{font-size:12px;display:block;opacity:.55;margin-bottom:5px}.item span{font-size:17px;line-height:1.5;word-break:keep-all}
+.card .small{font-size:clamp(9px,2.3vw,12px);letter-spacing:.12em;opacity:.65}.card h2{font-size:clamp(25px,7vw,30px);margin:7px 0}.card .intro{font-size:clamp(11px,3vw,14px);line-height:1.7;opacity:.75}
+.item{padding:clamp(7px,2vw,12px) 0;border-top:1px solid #00000012}.item b{font-size:clamp(9px,2.5vw,12px);display:block;opacity:.55;margin-bottom:5px}.item span{font-size:clamp(12px,3.5vw,17px);overflow-wrap:anywhere;line-height:1.5;word-break:keep-all}
 .actions{display:flex;gap:10px;margin-top:18px}.actions button{flex:1;font-weight:700}.primary{background:#343434!important;color:#fff;border-color:#343434!important}
-.note{font-size:12px;color:#777;margin-top:10px;line-height:1.5}@media(max-width:760px){.grid{grid-template-columns:1fr}.hero h1{font-size:32px}.wrap{padding:20px 14px 50px}}
+.help-box{border:1px solid #e5e0d8;border-radius:14px;padding:10px 14px;background:#faf9f6}
+.help-item{display:flex;gap:10px;align-items:flex-start;padding:8px 0;line-height:1.45}
+.help-item+.help-item{border-top:1px solid #0000000c}
+.help-num{font-weight:800;white-space:nowrap}
+.help-card{font-size:clamp(9px,2.5vw,12px);line-height:1.45}
+.help-card div{margin-top:3px}
+.note{font-size:12px;color:#777;margin-top:10px;line-height:1.5}@media(max-width:760px){
+.grid{grid-template-columns:1fr;gap:18px}
+.wrap{padding:18px 12px 50px}
+.panel{border-radius:18px}
+.card{max-width:100%;border-radius:22px;padding:clamp(20px,6vw,28px)}
+}
+@media(max-width:380px){
+.designs button{font-size:13px}
+.actions{flex-direction:column}
+.card{padding:19px;gap:10px}
+}
 </style>
 </head>
 <body>
@@ -47,11 +63,12 @@ input,textarea,select{width:100%;border:1px solid #ddd;border-radius:12px;paddin
 <label for="person">4. 나를 지켜주는 사람 또는 장소</label>
 <input id="person" maxlength="40" placeholder="예: 언제든 연락할 수 있는 친구">
 
-<label for="hope">5. 지금 나에게 해주고 싶은 말</label>
-<input id="hope" maxlength="40" placeholder="예: 오늘도 잘 버티고 있어">
-
-<label for="area">6. 도움을 받고 싶을 때</label>
-<select id="area"><option>109 자살예방상담전화</option><option>정신건강위기상담전화 1577-0199</option><option>청소년상담전화 1388</option></select>
+<label>5. 도움이 필요할 때</label>
+<div class="help-box">
+<div class="help-item"><span class="help-num">109</span><span>자살예방상담전화</span></div>
+<div class="help-item"><span class="help-num">1577-0199</span><span>정신건강위기상담전화</span></div>
+<div class="help-item"><span class="help-num">1388</span><span>청소년상담전화</span></div>
+</div>
 
 <div class="actions">
 <button id="reset">🔄 다시 만들기</button>
@@ -68,17 +85,20 @@ input,textarea,select{width:100%;border:1px solid #ddd;border-radius:12px;paddin
 <div class="item"><b>나를 웃게 하는 행복</b><span id="pvHappy">좋아하는 음악 듣기</span></div>
 <div class="item"><b>내 마음의 SOS</b><span id="pvSos">잠이 잘 오지 않는다</span></div>
 <div class="item"><b>나를 지켜주는 사람·장소</b><span id="pvPerson">언제든 연락할 수 있는 친구</span></div>
-<div class="item"><b>지금 나에게 해주고 싶은 말</b><span id="pvHope">오늘도 잘 버티고 있어</span></div>
 </div>
-<div class="small">도움이 필요할 때 · <span id="pvArea">109 자살예방상담전화</span></div>
+<div class="help-card">
+<div>도움이 필요할 때</div>
+<div>109 자살예방상담전화 · 1577-0199 정신건강위기상담전화</div>
+<div>1388 청소년상담전화</div>
+</div>
 </div>
 </section>
 </div>
 </div>
 
 <script>
-const ids=["happy","sos","person","hope","area"];
-const defaults={happy:"좋아하는 음악 듣기",sos:"잠이 잘 오지 않는다",person:"언제든 연락할 수 있는 친구",hope:"오늘도 잘 버티고 있어",area:"109 자살예방상담전화"};
+const ids=["happy","sos","person"];
+const defaults={happy:"좋아하는 음악 듣기",sos:"잠이 잘 오지 않는다",person:"언제든 연락할 수 있는 친구"};
 function update(){
   ids.forEach(id=>{
     const v=document.getElementById(id).value.trim()||defaults[id];
@@ -91,7 +111,7 @@ document.querySelectorAll("[data-design]").forEach(b=>b.onclick=()=>{
  document.getElementById("card").className="card "+b.dataset.design;
 });
 document.getElementById("reset").onclick=()=>{
- ids.forEach(id=>document.getElementById(id).value=""); update();
+ ["happy","sos","person"].forEach(id=>document.getElementById(id).value=""); update();
 };
 document.getElementById("save").onclick=async()=>{
  if(!window.html2canvas){alert("저장 기능을 준비하는 중입니다. 인터넷 연결을 확인해주세요.");return}
