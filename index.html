@@ -4,308 +4,387 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>나를 바라봄 카드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans KR", sans-serif;
-  background-color: #f5f2ec;
-  color: #343434;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #f6f9fc 0%, #edf1f7 100%);
+  color: #2d3748;
+  min-height: 100vh;
 }
 .wrap {
   width: 100%;
-  max-width: 1050px;
+  max-width: 1040px;
   margin: auto;
-  padding: clamp(20px, 5vw, 34px) 16px 60px;
+  padding: clamp(24px, 5vw, 48px) 20px 80px;
 }
 .hero {
   text-align: center;
-  padding: 34px 10px 25px;
+  padding: 20px 10px 36px;
 }
 .eyebrow {
-  letter-spacing: .15em;
-  font-size: 12px;
-  color: #8b806f;
-  font-weight: 600;
+  display: inline-block;
+  letter-spacing: .1em;
+  font-size: 13px;
+  color: #4a5568;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 6px 16px;
+  border-radius: 30px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  margin-bottom: 12px;
 }
 .hero h1 {
-  font-size: clamp(30px, 7vw, 42px);
-  margin: 10px 0 12px;
-  color: #2c2c2c;
+  font-size: clamp(32px, 6vw, 44px);
+  margin: 0 0 12px;
+  color: #1a202c;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 .hero p {
-  line-height: 1.7;
-  color: #666;
+  line-height: 1.6;
+  color: #4a5568;
+  font-size: clamp(15px, 2.5vw, 17px);
   margin: 0;
 }
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 28px;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
   align-items: start;
 }
 .panel {
-  background: #fff;
-  min-width: 0;
-  border-radius: 24px;
-  padding: 25px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 .panel h3 {
   margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  color: #333;
+  margin-bottom: 24px;
+  font-size: 1.3rem;
+  color: #1a202c;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 label {
   display: block;
   font-weight: 700;
-  margin: 19px 0 8px;
+  margin: 22px 0 10px;
   font-size: 0.95rem;
+  color: #4a5568;
 }
 .designs {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
-.designs button, .actions button {
-  border: 1px solid #ddd;
-  background: #fff;
-  border-radius: 12px;
-  padding: 10px 13px;
+.designs button {
+  flex: 1;
+  border: 2px solid #edf2f7;
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 12px 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #64748b;
+  transition: all 0.25s ease;
+}
+.designs button:hover {
+  background: #edf2f7;
 }
 .designs button.active {
-  background: #343434;
-  color: #fff;
-  border-color: #343434;
+  background: #3182ce;
+  color: #ffffff;
+  border-color: #3182ce;
+  box-shadow: 0 4px 14px rgba(49, 130, 206, 0.35);
 }
-input, textarea, select {
+input {
   width: 100%;
-  min-width: 0;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px 16px;
   font: inherit;
-  background: #fff;
+  background: #f8fafc;
+  transition: all 0.2s ease;
 }
-input:focus, textarea:focus {
+input:focus {
   outline: none;
-  border-color: #8b806f;
-}
-.card {
-  width: 100%;
-  max-width: 430px;
-  aspect-ratio: 4 / 5;
-  margin: auto;
-  border-radius: 28px;
-  padding: 35px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  transition: background 0.3s ease, border 0.3s ease;
-}
-.card.diary {
-  background: #fff9e9;
-  border: 1px solid #e6dcc3;
-}
-.card.simple {
-  background: #f3f7f3;
-  border: 1px solid #d8e1d8;
-}
-.card.character {
-  background: #eaf4ff;
-  border: 1px solid #d2e1ef;
-}
-.card .small {
-  font-size: clamp(9px, 2.3vw, 12px);
-  letter-spacing: .12em;
-  opacity: .65;
-  font-weight: 600;
-}
-.card h2 {
-  font-size: clamp(25px, 7vw, 30px);
-  margin: 7px 0;
-  color: #222;
-}
-.card .intro {
-  font-size: clamp(11px, 3vw, 14px);
-  line-height: 1.7;
-  opacity: .75;
-}
-.item {
-  padding: clamp(9px, 2.2vw, 14px) 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-.item b {
-  font-size: clamp(10px, 2.6vw, 13px);
-  display: block;
-  opacity: .6;
-  margin-bottom: 4px;
-}
-.item span {
-  font-size: clamp(13px, 3.6vw, 17px);
-  overflow-wrap: anywhere;
-  line-height: 1.5;
-  word-break: keep-all;
-  font-weight: 500;
-}
-.actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 22px;
-}
-.actions button {
-  flex: 1;
-  font-weight: 700;
-}
-.primary {
-  background: #343434 !important;
-  color: #fff;
-  border-color: #343434 !important;
+  border-color: #3182ce;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
 }
 .help-box {
-  border: 1px solid #e5e0d8;
-  border-radius: 14px;
-  padding: 12px 14px;
-  background: #faf9f6;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: #f8fafc;
 }
 .help-item {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   align-items: center;
-  padding: 6px 0;
-  line-height: 1.45;
+  padding: 8px 0;
 }
 .help-item + .help-item {
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px dashed #e2e8f0;
 }
 .help-num {
   font-weight: 800;
-  white-space: nowrap;
-  color: #444;
+  color: #2b6cb0;
+  background: #ebf8ff;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
 }
-.help-card {
-  font-size: clamp(9px, 2.5vw, 12px);
-  line-height: 1.45;
-  border-top: 1px solid rgba(0,0,0,0.08);
-  padding-top: 10px;
+.help-label {
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-weight: 600;
 }
-.help-card div {
-  margin-top: 3px;
-  opacity: 0.8;
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+.actions button {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+.btn-reset {
+  background: #edf2f7;
+  color: #4a5568;
+}
+.btn-reset:hover {
+  background: #e2e8f0;
+}
+.btn-save {
+  background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(49, 130, 206, 0.4);
+}
+.btn-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(49, 130, 206, 0.5);
 }
 .note {
-  font-size: 12px;
-  color: #777;
-  margin-top: 12px;
-  line-height: 1.5;
+  font-size: 13px;
+  color: #a0aec0;
+  margin-top: 14px;
+  text-align: center;
 }
 
-/* --- 설문조사 섹션 스타일 --- */
+/* --- 카드 디자인 --- */
+.card {
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 4 / 5.2;
+  margin: auto;
+  border-radius: 32px;
+  padding: clamp(28px, 6vw, 36px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+/* 1) 다이어리형 */
+.card.diary {
+  background: linear-gradient(145deg, #fffdf7 0%, #fff8e7 100%);
+  border: 2px solid #f3e9d2;
+  color: #4a3e3d;
+}
+.card.diary .card-badge { background: #e2d4b7; color: #5c4d3c; }
+.card.diary .item { border-top: 1px dashed #e8dcc4; }
+
+/* 2) 심플형 */
+.card.simple {
+  background: linear-gradient(145deg, #ffffff 0%, #f4f7f6 100%);
+  border: 2px solid #e1e8e6;
+  color: #2d3748;
+}
+.card.simple .card-badge { background: #cbd5e0; color: #2d3748; }
+.card.simple .item { border-top: 1px solid #edf2f7; }
+
+/* 3) 파스텔형 */
+.card.character {
+  background: linear-gradient(145deg, #f0f7ff 0%, #e6effd 100%);
+  border: 2px solid #d0e1fd;
+  color: #2b4c7e;
+}
+.card.character .card-badge { background: #ebf8ff; color: #2b6cb0; }
+.card.character .item { border-top: 1px solid #dce7f9; }
+
+.card-badge {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .12em;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+.card h2 {
+  font-size: clamp(26px, 6.5vw, 32px);
+  margin: 4px 0 6px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.card .intro {
+  font-size: clamp(12px, 2.8vw, 14px);
+  line-height: 1.6;
+  opacity: .8;
+}
+.item {
+  padding: clamp(10px, 2.4vw, 14px) 0;
+}
+.item b {
+  font-size: clamp(11px, 2.5vw, 13px);
+  display: block;
+  opacity: .65;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+.item span {
+  font-size: clamp(14px, 3.6vw, 17px);
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+  word-break: keep-all;
+  font-weight: 600;
+}
+.help-card {
+  font-size: clamp(10px, 2.5vw, 12px);
+  line-height: 1.6;
+  border-top: 1.5px solid rgba(0,0,0,0.08);
+  padding-top: 12px;
+  opacity: 0.9;
+}
+.help-card-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+/* --- 설문조사 섹션 --- */
 .survey-section {
-  margin-top: 40px;
+  margin-top: 48px;
 }
 .survey-card {
-  background: #ffffff;
-  border: 3px solid #6b82a8;
-  border-radius: 20px;
-  padding: 30px 24px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid #cbd5e1;
+  border-radius: 28px;
+  padding: 40px 28px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(107, 130, 168, 0.15);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.05);
   position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease;
 }
 .survey-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 35px rgba(107, 130, 168, 0.22);
+  transform: translateY(-4px);
 }
 .survey-badge {
   display: inline-block;
-  background-color: #e74c3c;
+  background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 100%);
   color: white;
   font-size: 0.85rem;
   font-weight: 800;
-  padding: 5px 14px;
+  padding: 6px 16px;
   border-radius: 20px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   letter-spacing: 0.05em;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  box-shadow: 0 4px 12px rgba(255, 95, 109, 0.3);
 }
 .survey-card h2 {
-  font-size: 1.5rem;
-  margin: 0 0 8px 0;
-  color: #2c2c2c;
+  font-size: clamp(20px, 4vw, 24px);
+  margin: 0 0 10px 0;
+  color: #1e293b;
+  font-weight: 800;
 }
 .survey-card p {
-  font-size: 1.05rem;
-  color: #555;
+  font-size: clamp(14px, 2.5vw, 16px);
+  color: #64748b;
   margin: 0 0 24px 0;
-  line-height: 1.5;
+  line-height: 1.6;
+}
+.survey-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.qr-wrapper {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.qr-code {
+  width: 140px;
+  height: 140px;
+  display: block;
+}
+.qr-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 8px;
+  font-weight: 600;
 }
 .survey-button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 100%;
-  max-width: 480px;
-  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  max-width: 420px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: #ffffff !important;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 800;
   text-decoration: none;
-  padding: 18px 24px;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(24, 40, 72, 0.25);
+  padding: 16px 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
   transition: all 0.3s ease;
 }
 .survey-button:hover {
-  opacity: 0.95;
-  box-shadow: 0 8px 22px rgba(24, 40, 72, 0.35);
-}
-.survey-link-text {
-  margin-top: 12px;
-  font-size: 0.85rem;
-  color: #888;
-  word-break: break-all;
+  transform: scale(1.02);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.45);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 24px;
   }
   .wrap {
-    padding: 18px 12px 50px;
+    padding: 20px 14px 60px;
   }
   .panel {
-    border-radius: 18px;
-  }
-  .card {
-    max-width: 100%;
     border-radius: 22px;
-    padding: clamp(20px, 6vw, 28px);
-  }
-}
-@media (max-width: 380px) {
-  .designs button {
-    font-size: 13px;
-  }
-  .actions {
-    flex-direction: column;
+    padding: 24px;
   }
   .card {
-    padding: 19px;
-    gap: 10px;
-  }
-  .survey-button {
-    font-size: 1.1rem;
-    padding: 15px 18px;
+    border-radius: 24px;
+    padding: 24px;
   }
 }
 </style>
@@ -320,13 +399,13 @@ input:focus, textarea:focus {
 
   <div class="grid">
     <section class="panel">
-      <h3>나만의 카드 만들기</h3>
+      <h3>🎨 나만의 카드 만들기</h3>
       
-      <label>1. 디자인 선택</label>
+      <label>1. 디자인 테마</label>
       <div class="designs">
-        <button class="active" data-design="diary">다이어리형</button>
-        <button data-design="simple">심플형</button>
-        <button data-design="character">캐릭터형</button>
+        <button class="active" data-design="diary">다이어리</button>
+        <button data-design="simple">모던 심플</button>
+        <button data-design="character">파스텔 블루</button>
       </div>
 
       <label for="happy">2. 나를 웃게 하는 소소한 행복</label>
@@ -340,23 +419,32 @@ input:focus, textarea:focus {
 
       <label>5. 도움이 필요할 때</label>
       <div class="help-box">
-        <div class="help-item"><span class="help-num">109</span><span>자살예방상담전화</span></div>
-        <div class="help-item"><span class="help-num">1577-0199</span><span>정신건강위기상담전화</span></div>
-        <div class="help-item"><span class="help-num">1388</span><span>청소년상담전화</span></div>
+        <div class="help-item">
+          <span class="help-label">자살예방상담전화</span>
+          <span class="help-num">109</span>
+        </div>
+        <div class="help-item">
+          <span class="help-label">정신건강위기상담전화</span>
+          <span class="help-num">1577-0199</span>
+        </div>
+        <div class="help-item">
+          <span class="help-label">카카오톡 채널 / 어플</span>
+          <span class="help-num">마들랜</span>
+        </div>
       </div>
 
       <div class="actions">
-        <button id="reset">🔄 다시 만들기</button>
-        <button class="primary" id="save">💾 카드 저장하기</button>
+        <button id="reset" class="btn-reset">🔄 다시 쓰기</button>
+        <button id="save" class="btn-save">💾 카드 저장하기</button>
       </div>
       <div class="note">저장하기를 누르면 현재 카드가 PNG 이미지로 저장됩니다.</div>
     </section>
 
     <section class="panel">
-      <h3>카드 미리보기</h3>
+      <h3>👀 카드 미리보기</h3>
       <div id="card" class="card diary">
         <div>
-          <div class="small">MY 바라봄 CARD</div>
+          <span class="card-badge">MY 바라봄 CARD</span>
           <h2>나를 바라봄</h2>
           <div class="intro">내 마음을 살펴보고<br>나를 지켜주는 것들을 기억해요.</div>
         </div>
@@ -366,27 +454,29 @@ input:focus, textarea:focus {
           <div class="item"><b>나를 지켜주는 사람·장소</b><span id="pvPerson">언제든 연락할 수 있는 친구</span></div>
         </div>
         <div class="help-card">
-          <div><b>도움이 필요할 때</b></div>
-          <div>109 자살예방상담전화 · 1577-0199 정신건강위기상담전화</div>
-          <div>1388 청소년상담전화</div>
+          <div class="help-card-title">💡 도움이 필요할 때 연결하세요</div>
+          <div>• 자살예방 109 · 정신건강위기 1577-0199</div>
+          <div>• 카카오톡 채널 / 어플 <b>'마들랜'</b></div>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- 눈에 띄는 설문조사 섹션 -->
   <section class="survey-section">
     <div class="survey-card">
       <div class="survey-badge">📌 필수 마지막 단계</div>
-      <h2>아래 설문지 작성 후 캠페인 참여를 완료해주세요</h2>
-      <p>카드를 만드신 후, <b>설문조사까지 작성해주셔야 캠페인 참여가 완료</b>됩니다!</p>
+      <h2>설문지 작성 후 캠페인 참여를 완료해주세요</h2>
+      <p>카드를 만든 후 <b>설문조사까지 작성해주셔야 이벤트 참여가 완료</b>됩니다!</p>
       
-      <a href="https://forms.gle/Yd45TadYrndnZEG76" target="_blank" class="survey-button">
-        👉 설문지 작성하러 가기
-      </a>
-      
-      <div class="survey-link-text">
-        (링크: https://forms.gle/Yd45TadYrndnZEG76)
+      <div class="survey-body">
+        <div class="qr-wrapper">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://forms.gle/Yd45TadYrndnZEG76" alt="설문조사 QR 코드" class="qr-code">
+          <span class="qr-label">📱 카메라로 스캔 가능</span>
+        </div>
+
+        <a href="https://forms.gle/Yd45TadYrndnZEG76" target="_blank" class="survey-button">
+          👉 설문지 바로 작성하러 가기
+        </a>
       </div>
     </div>
   </section>
@@ -424,7 +514,7 @@ document.getElementById("reset").onclick = () => {
 
 document.getElementById("save").onclick = async () => {
   if (!window.html2canvas) {
-    alert("저장 기능을 준비하는 중입니다. 인터넷 연결을 확인해주세요.");
+    alert("저장 기능을 준비하는 중입니다. 잠시 후 다시 시도해보세요.");
     return;
   }
   const canvas = await html2canvas(document.getElementById("card"), { scale: 2, useCORS: true });
